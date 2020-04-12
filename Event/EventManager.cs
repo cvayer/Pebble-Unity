@@ -26,28 +26,41 @@ public class EventManager : Singleton<EventManager>
     //--------------------------------------------------------
     public static void Subscribe<T>(EventDelegate<T> callback, EventChannel channel = EventChannel.Regular) where T : Event
     {
-        Instance.OnSubscribe<T>(callback, channel);
+        if(Instance != null)
+        {
+            Instance.OnSubscribe<T>(callback, channel);
+        }
+        
     }
 
     //--------------------------------------------------------
     public static void UnSubscribe<T>(EventDelegate<T> callback, EventChannel channel = EventChannel.Regular) where T : Event
     {
-        Instance.OnUnSubscribe<T>(callback, channel);
+        if(Instance != null)
+        {
+            Instance.OnUnSubscribe<T>(callback, channel);
+        }
     }
 
     //--------------------------------------------------------
     // Automatically free the event if inherit from PooledEvent
     public static void SendEvent<T>(T evt) where T : Event
     {
-        Instance.OnSendEvent<T>(evt);
+        if(Instance != null)
+        {
+            Instance.OnSendEvent<T>(evt);
+        }
     }
 
     //--------------------------------------------------------
     // Automatically free the event if inherit from PooledEvent
     public static void SendEmptyPooledEvent<T>() where T : PooledEvent, new()
     {
-        T evt = Pools.Claim<T>();
-        Instance.OnSendEvent<T>(evt);
+        if(Instance != null)
+        {
+            T evt = Pools.Claim<T>();
+            Instance.OnSendEvent<T>(evt);
+        }
     }
 
     //--------------------------------------------------------
