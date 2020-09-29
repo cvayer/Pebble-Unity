@@ -6,17 +6,26 @@ using UnityEngine;
 // ScreenRenderer
 //-------------------------------------------------------
 //-------------------------------------------------------
-public abstract class ScreenRenderer<ScreenType> : IScreenRenderer where ScreenType : IScreen
+public abstract class ScreenRenderer
 {
     //----------------------------------------------
     // Variables
-    private ScreenType m_screen;
-
+    private Screen m_screen;
+ 
     //----------------------------------------------
     // Properties
 
-    public ScreenType Screen
-    {
+    public Screen Screen
+    { 
+        /* You can override this property in your base class for easy access : 
+
+        public new MyScreen Screen
+        {
+            get 
+            { 
+                return base.Screen as MyScreen;
+            }
+        } */
         get
         {
             return m_screen;
@@ -32,7 +41,7 @@ public abstract class ScreenRenderer<ScreenType> : IScreenRenderer where ScreenT
     }
 
     //-------------------------------------------------------
-    public void SetScreen(ScreenType screen)
+    public void SetScreen(Screen screen)
     {
         m_screen = screen;
     }

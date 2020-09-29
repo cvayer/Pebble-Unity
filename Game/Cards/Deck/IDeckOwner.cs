@@ -1,11 +1,13 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
 using UnityEngine;
 
 //-------------------------------------------------------
 //-------------------------------------------------------
-// ScreenDefinition
+// IDeckOwner
 //-------------------------------------------------------
 //-------------------------------------------------------
-public class ScreenDefinition : SerializedScriptableObject
+public interface IDeckOwner
 {
+
 }
+

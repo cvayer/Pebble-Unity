@@ -19,3 +19,14 @@ class MenuCreateBase
     }
 }
 
+// Use like this
+
+/* class MenuCreateMyClass : MenuCreateBase
+{
+    [MenuItem("Assets/Create/The/Path/You/Want")]
+    public static void Create()
+    {
+        Create<MyClass>("MyClass or name you want");
+    }
+} */
+

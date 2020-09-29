@@ -5,32 +5,59 @@
 // Screen
 //----------------------------------------------
 //----------------------------------------------
-public abstract class Screen<RendererType> : IScreen where RendererType : IScreenRenderer, new()
+public abstract class Screen 
 {
     //----------------------------------------------
     // Variables
-    private RendererType m_renderer;
+
+    private ScreenRenderer m_renderer;
+    private ScreenDefinition m_definition;
+
     //----------------------------------------------
     // Properties
 
-    public RendererType Renderer
+    public ScreenRenderer Renderer
     {
-        get
+         /* You can override this property in your base class for easy access : 
+
+        public new MyRenderer Renderer
         {
-            return m_renderer;
-        }
+            get 
+            { 
+                return base.Renderer as MyRenderer;
+            }
+        } */
+
+        get { return m_renderer; }
+    }
+
+    public ScreenDefinition Definition
+    {
+        /* You can override this property in your base class for easy access : 
+
+        public new MyDefinition Definition
+        {
+            get 
+            { 
+                return base.Definition as MyDefinition;
+            }
+        } */
+        get { return m_definition; }
     }
 
     //----------------------------------------------
     // Methods
 
-    public void Init()
+    public void Init(ScreenDefinition definition, ScreenRenderer renderer)
     {
-        m_renderer = new RendererType();
+        m_renderer = renderer;
+        m_definition = definition;
+
         OnInit();
 
         if (m_renderer != null)
         {
+            m_renderer.SetScreen(this);
             m_renderer.Init();
         }
     }
