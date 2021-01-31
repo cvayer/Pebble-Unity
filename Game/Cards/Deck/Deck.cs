@@ -8,7 +8,7 @@ using UnityEngine;
 //----------------------------------------------
 //----------------------------------------------
 
-public class Deck<CardType> where CardType  : Card
+public class Deck<CardType> where CardType  : BaseCard
 {
     //----------------------------------------------
     // Variables
