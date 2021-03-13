@@ -3,20 +3,23 @@ using System.Collections;
 using UnityEditor;
 using System.IO;
 
-public class SelectionHelpers
-{ 
-	public static string GetSelectionAssetPath()
+namespace Pebble
+{
+    public class SelectionHelpers
     {
-        string path = "Assets";
-        foreach (UnityEngine.Object obj in Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Assets))
+        public static string GetSelectionAssetPath()
         {
-            path = AssetDatabase.GetAssetPath(obj);
-            if (File.Exists(path))
+            string path = "Assets";
+            foreach (UnityEngine.Object obj in Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Assets))
             {
-                path = Path.GetDirectoryName(path);
+                path = AssetDatabase.GetAssetPath(obj);
+                if (File.Exists(path))
+                {
+                    path = Path.GetDirectoryName(path);
+                }
+                break;
             }
-            break;
+            return path;
         }
-        return path;
     }
 }

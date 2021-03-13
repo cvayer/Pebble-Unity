@@ -1,12 +1,14 @@
 ﻿using System;
 
 
-
-public enum EventChannel
+namespace Pebble
 {
-    Pre = 0,
-    Regular = 1,
-    Post = 2,
-    Count
+    public enum EventChannel
+    {
+        Pre = 0,
+        Regular = 1,
+        Post = 2,
+        Count
+    }
 }
 

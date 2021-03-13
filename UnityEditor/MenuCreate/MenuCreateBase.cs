@@ -1,32 +1,34 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-
-class MenuCreateBase
+namespace Pebble
 {
-    public static void Create<T>(string newAssetName) where T : ScriptableObject
+    class MenuCreateBase
     {
-        T asset = ScriptableObject.CreateInstance<T>();
+        public static void Create<T>(string newAssetName) where T : ScriptableObject
+        {
+            T asset = ScriptableObject.CreateInstance<T>();
 
-        string path = SelectionHelpers.GetSelectionAssetPath();
+            string path = SelectionHelpers.GetSelectionAssetPath();
 
-        AssetDatabase.CreateAsset(asset, path + "/" + newAssetName + ".asset");
-        AssetDatabase.SaveAssets();
+            AssetDatabase.CreateAsset(asset, path + "/" + newAssetName + ".asset");
+            AssetDatabase.SaveAssets();
 
-        Selection.activeObject = asset;
+            Selection.activeObject = asset;
 
-        EditorUtility.FocusProjectWindow();
+            EditorUtility.FocusProjectWindow();
+        }
     }
+
+    // Use like this
+
+    /* class MenuCreateMyClass : MenuCreateBase
+    {
+        [MenuItem("Assets/Create/The/Path/You/Want")]
+        public static void Create()
+        {
+            Create<MyClass>("MyClass or name you want");
+        }
+    } */
 }
-
-// Use like this
-
-/* class MenuCreateMyClass : MenuCreateBase
-{
-    [MenuItem("Assets/Create/The/Path/You/Want")]
-    public static void Create()
-    {
-        Create<MyClass>("MyClass or name you want");
-    }
-} */
 

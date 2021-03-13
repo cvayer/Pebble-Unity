@@ -6,9 +6,12 @@
 //--------------------------------------------------------
 //--------------------------------------------------------
 
-
-public abstract class Event
+namespace Pebble
 {
-   // public abstract void Send();
+    public abstract class Event
+    {
+
+    }
 }
+
 

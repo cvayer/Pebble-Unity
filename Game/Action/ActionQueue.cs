@@ -5,48 +5,50 @@
 // EffectQueue
 //-------------------------------------------------------
 //-------------------------------------------------------
-
-public class ActionQueue
+namespace Pebble
 {
-    //----------------------------------------------
-    // Variables
-    private List<Action> m_queue;
-
-    //----------------------------------------------
-    // Properties
-  
-    //----------------------------------------------
-    // Methods
-    //-------------------------------------------------------
-    public ActionQueue()
+    public class ActionQueue
     {
-        m_queue = new List<Action>();
-    }
+        //----------------------------------------------
+        // Variables
+        private List<Action> m_queue;
 
-    //-------------------------------------------------------
-    public void AddAction(Action action)
-    {
-        if(action != null)
+        //----------------------------------------------
+        // Properties
+
+        //----------------------------------------------
+        // Methods
+        //-------------------------------------------------------
+        public ActionQueue()
         {
-            action.SetQueue(this);
-            m_queue.Add(action);
-        }
-    }
-
-    public void Process()
-    {
-        if(m_queue.Count == 0)
-        {
-            return;
+            m_queue = new List<Action>();
         }
 
-        Action currentAction = m_queue.Front();
-        currentAction.Process();
-        // No else here alllows for the action to be processed in the start
-        if (currentAction.IsProcessed)
+        //-------------------------------------------------------
+        public void AddAction(Action action)
         {
-            m_queue.PopFront();
-            Pools.Free(currentAction);
+            if (action != null)
+            {
+                action.SetQueue(this);
+                m_queue.Add(action);
+            }
+        }
+
+        public void Process()
+        {
+            if (m_queue.Count == 0)
+            {
+                return;
+            }
+
+            Action currentAction = m_queue.Front();
+            currentAction.Process();
+            // No else here alllows for the action to be processed in the start
+            if (currentAction.IsProcessed)
+            {
+                m_queue.PopFront();
+                Pools.Free(currentAction);
+            }
         }
     }
 }

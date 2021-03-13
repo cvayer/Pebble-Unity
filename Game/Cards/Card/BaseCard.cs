@@ -6,15 +6,18 @@ using UnityEngine;
 // BaseCard
 //----------------------------------------------
 //----------------------------------------------
-public class BaseCard
+namespace Pebble
 {
-    //----------------------------------------------
-    // Variables
-    public IDeckOwner Owner { get; set; }
-
-    //----------------------------------------------
-    public BaseCard()
+    public class BaseCard
     {
-        
+        //----------------------------------------------
+        // Variables
+        public IDeckOwner Owner { get; set; }
+
+        //----------------------------------------------
+        public BaseCard()
+        {
+
+        }
     }
 }

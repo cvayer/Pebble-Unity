@@ -6,8 +6,11 @@ using UnityEngine;
 // IDeckOwner
 //-------------------------------------------------------
 //-------------------------------------------------------
-public interface IDeckOwner
+namespace Pebble
 {
+    public interface IDeckOwner
+    {
 
+    }
 }
 

@@ -1,54 +1,56 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class Singleton<T> : SerializedMonoBehaviour where T : Component
+namespace Pebble
 {
-    private static T s_instance;
-    private static object s_lock = new object();
-    private static bool s_applicationIsQuitting = false;
-
-    public static T Instance
+    public class Singleton<T> : SerializedMonoBehaviour where T : Component
     {
-        get
-        {
-            if (s_applicationIsQuitting)
-            {
-                return null;
-            }
+        private static T s_instance;
+        private static object s_lock = new object();
+        private static bool s_applicationIsQuitting = false;
 
-            lock (s_lock)
+        public static T Instance
+        {
+            get
             {
-                if (s_instance == null)
+                if (s_applicationIsQuitting)
                 {
-                    s_instance = FindObjectOfType<T>();
+                    return null;
+                }
+
+                lock (s_lock)
+                {
                     if (s_instance == null)
                     {
-                        GameObject obj = new GameObject(typeof(T).Name);
-                        s_instance = obj.AddComponent<T>();
+                        s_instance = FindObjectOfType<T>();
+                        if (s_instance == null)
+                        {
+                            GameObject obj = new GameObject(typeof(T).Name);
+                            s_instance = obj.AddComponent<T>();
+                        }
                     }
+                    return s_instance;
                 }
-                return s_instance;
             }
         }
-    }
 
-    public virtual void Awake()
-    {
-        if (s_instance == null)
+        public virtual void Awake()
         {
-            s_instance = this as T;
-            DontDestroyOnLoad(this.gameObject);
+            if (s_instance == null)
+            {
+                s_instance = this as T;
+                DontDestroyOnLoad(this.gameObject);
+            }
+            else
+            {
+                Destroy(this.gameObject);
+            }
         }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-    }
 
-    public virtual void OnDestroy()
-    {
-        s_applicationIsQuitting = true;
+        public virtual void OnDestroy()
+        {
+            s_applicationIsQuitting = true;
+        }
     }
 }
-
 

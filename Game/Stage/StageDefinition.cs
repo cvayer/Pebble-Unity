@@ -6,7 +6,12 @@ using UnityEngine;
 // ScreenDefinition
 //-------------------------------------------------------
 //-------------------------------------------------------
-public class ScreenDefinition : SerializedScriptableObject
+
+namespace Pebble
 {
-    
+    public class StageDefinition : SerializedScriptableObject
+    {
+
+    }
+
 }

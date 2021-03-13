@@ -1,7 +1,9 @@
 ﻿using System;
 
-public interface IPool
+namespace Pebble
 {
-    void Free(IPoolable poolable);
+    public interface IPool
+    {
+        void Free(IPoolable poolable);
+    }
 }
-

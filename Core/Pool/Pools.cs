@@ -1,48 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
 
-class Pools : Singleton<Pools>
+namespace Pebble
 {
-    private Dictionary<Type, IPool > m_pools;
-
-    public Pools()
+    class Pools : Singleton<Pools>
     {
-        m_pools = new Dictionary<Type, IPool>();
-    }
+        private Dictionary<Type, IPool> m_pools;
 
-    //----------------------------------------------------------------------
-    public static T Claim<T>() where T : class, IPoolable, new()
-    {
-        return Instance.OnClaim<T>();
-    }
-
-    //----------------------------------------------------------------------
-    public static void Free(IPoolable obj)
-    {
-        Instance.OnFree(obj);
-    }
-
-
-
-    //----------------------------------------------------------------------
-    private T OnClaim<T>() where T : class, IPoolable, new()
-    {
-        Type type = typeof(T);
-        if (!m_pools.ContainsKey(type))
+        public Pools()
         {
-            m_pools[type] = new Pool<T>();
+            m_pools = new Dictionary<Type, IPool>();
         }
-        return (m_pools[type] as Pool<T>).Claim();
-    }
 
-    //----------------------------------------------------------------------
-    private void OnFree(IPoolable obj)
-    {
-        Type type = obj.GetType();
-        if (m_pools.ContainsKey(type))
+        //----------------------------------------------------------------------
+        public static T Claim<T>() where T : class, IPoolable, new()
         {
-            m_pools[type].Free(obj);
+            return Instance.OnClaim<T>();
+        }
+
+        //----------------------------------------------------------------------
+        public static void Free(IPoolable obj)
+        {
+            Instance.OnFree(obj);
+        }
+
+
+
+        //----------------------------------------------------------------------
+        private T OnClaim<T>() where T : class, IPoolable, new()
+        {
+            Type type = typeof(T);
+            if (!m_pools.ContainsKey(type))
+            {
+                m_pools[type] = new Pool<T>();
+            }
+            return (m_pools[type] as Pool<T>).Claim();
+        }
+
+        //----------------------------------------------------------------------
+        private void OnFree(IPoolable obj)
+        {
+            Type type = obj.GetType();
+            if (m_pools.ContainsKey(type))
+            {
+                m_pools[type].Free(obj);
+            }
         }
     }
 }
-

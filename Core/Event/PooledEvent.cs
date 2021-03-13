@@ -8,8 +8,11 @@ using System.Text;
 // Event that is pooled
 //---------------------------------------------------------------
 //---------------------------------------------------------------
-public abstract class PooledEvent : Event, IPoolable
+namespace Pebble
 {
-    public abstract void Reset();
+    public abstract class PooledEvent : Event, IPoolable
+    {
+        public abstract void Reset();
+    }
 }
 
