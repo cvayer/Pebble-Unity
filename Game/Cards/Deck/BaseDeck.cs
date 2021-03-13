@@ -4,12 +4,12 @@ using UnityEngine;
 
 //----------------------------------------------
 //----------------------------------------------
-// Deck
+// BaseDeck
 //----------------------------------------------
 //----------------------------------------------
 namespace Pebble
 {
-    public class Deck<CardType> where CardType : BaseCard
+    public class BaseDeck<CardType> where CardType : BaseCard
     {
         //----------------------------------------------
         // Variables
@@ -51,13 +51,13 @@ namespace Pebble
 
 
         //------------------------------------------------------
-        public Deck(IDeckOwner owner)
+        public BaseDeck(IDeckOwner owner)
         {
             m_owner = owner;
             m_cards = new List<CardType>();
         }
 
-        public Deck() : this(null)
+        public BaseDeck() : this(null)
         {
 
         }
@@ -113,7 +113,7 @@ namespace Pebble
         }
 
         //------------------------------------------------------
-        public int MoveCardsTo(int requested, Deck<CardType> other)
+        public int MoveCardsTo(int requested, BaseDeck<CardType> other)
         {
             int oldSize = Size;
             if (requested >= oldSize)
@@ -133,7 +133,7 @@ namespace Pebble
         }
 
         //------------------------------------------------------
-        public bool MoveCardTo(CardType card, Deck<CardType> other)
+        public bool MoveCardTo(CardType card, BaseDeck<CardType> other)
         {
             if (Contains(card))
             {
@@ -145,7 +145,7 @@ namespace Pebble
         }
 
         //------------------------------------------------------
-        public void MoveAllCardsTo(Deck<CardType> other)
+        public void MoveAllCardsTo(BaseDeck<CardType> other)
         {
             MoveCardsTo(Size, other);
         }
@@ -155,7 +155,7 @@ namespace Pebble
             return requested > Size;
         }
 
-        public void CopyFrom(Deck<CardType> other)
+        public void CopyFrom(BaseDeck<CardType> other)
         {
             m_owner = other.Owner;
             AddCards(other.Cards);
