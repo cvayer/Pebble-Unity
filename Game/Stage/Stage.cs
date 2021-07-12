@@ -13,27 +13,10 @@ namespace Pebble
         //----------------------------------------------
         // Variables
 
-        private StageRenderer m_renderer;
         private StageDefinition m_definition;
 
         //----------------------------------------------
         // Properties
-
-        public StageRenderer Renderer
-        {
-            /* You can override this property in your base class for easy access : 
-
-           public new MyRenderer Renderer
-           {
-               get 
-               { 
-                   return base.Renderer as MyRenderer;
-               }
-           } */
-
-            get { return m_renderer; }
-        }
-
         public StageDefinition Definition
         {
             /* You can override this property in your base class for easy access : 
@@ -51,48 +34,26 @@ namespace Pebble
         //----------------------------------------------
         // Methods
 
-        public void Init(StageDefinition definition, StageRenderer renderer)
+        public void Init(StageDefinition definition)
         {
-            m_renderer = renderer;
             m_definition = definition;
 
             OnInit();
-
-            if (m_renderer != null)
-            {
-                m_renderer.SetStage(this);
-                m_renderer.Init();
-            }
         }
 
 
         public void Start()
         {
             OnStart();
-
-            if (m_renderer != null)
-            {
-                m_renderer.Start();
-            }
         }
 
         public void Stop()
         {
             OnStop();
-
-            if (m_renderer != null)
-            {
-                m_renderer.Stop();
-            }
         }
 
         public void Shutdown()
         {
-            if (m_renderer != null)
-            {
-                m_renderer.Shutdown();
-            }
-
             OnShutdown();
         }
 
@@ -100,19 +61,6 @@ namespace Pebble
         public void Update()
         {
             OnUpdate();
-
-            if (m_renderer != null)
-            {
-                m_renderer.Update();
-            }
-        }
-
-        public void UpdateGUI()
-        {
-            if (m_renderer != null)
-            {
-                m_renderer.UpdateGUI();
-            }
         }
 
         protected abstract void OnInit();
