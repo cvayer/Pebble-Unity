@@ -3,9 +3,8 @@ using UnityEngine;
 
 namespace Pebble
 {
-    public class StageComponent<StageType, RendererType, DefinitionType> : MonoBehaviour
+    public class StageComponent<StageType, DefinitionType> : MonoBehaviour
                                                                             where StageType : Stage, new()
-                                                                            where RendererType : StageRenderer, new()
                                                                             where DefinitionType : StageDefinition
     {
         public DefinitionType ScreenDefinition;
@@ -18,7 +17,7 @@ namespace Pebble
             stage = new StageType();
             if (stage != null)
             {
-                stage.Init(ScreenDefinition, new RendererType());
+                stage.Init(ScreenDefinition);
                 stage.Start();
             }
 
@@ -30,14 +29,6 @@ namespace Pebble
             if (stage != null)
             {
                 stage.Update();
-            }
-        }
-
-        void OnGUI()
-        {
-            if (stage != null)
-            {
-                stage.UpdateGUI();
             }
         }
 
