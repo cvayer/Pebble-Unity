@@ -9,12 +9,16 @@ namespace Pebble
     {
         public DefinitionType ScreenDefinition;
 
-        StageType stage = null;
+        StageType stage = new StageType();
+
+        public StageType Stage
+        {
+            get { return stage; }
+        }
 
         // Use this for initialization
         void Start()
         {
-            stage = new StageType();
             if (stage != null)
             {
                 stage.Init(ScreenDefinition);
