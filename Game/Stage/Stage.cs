@@ -63,11 +63,17 @@ namespace Pebble
             OnUpdate();
         }
 
+        public void UpdateGUI()
+        {
+             OnGUI();   
+        }
+
         protected abstract void OnInit();
         protected abstract void OnStart();
         protected abstract void OnStop();
         protected abstract void OnShutdown();
         protected abstract void OnUpdate();
+        protected abstract void OnGUI();
 
     }
 }

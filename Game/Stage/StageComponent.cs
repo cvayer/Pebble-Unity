@@ -36,6 +36,14 @@ namespace Pebble
             }
         }
 
+         void OnGUI()
+         {
+            if (stage != null)
+            {
+                stage.UpdateGUI();
+            }
+         }
+
         public virtual void OnDestroy()
         {
             if (stage != null)
