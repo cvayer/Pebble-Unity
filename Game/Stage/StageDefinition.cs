@@ -1,4 +1,3 @@
-﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
 //-------------------------------------------------------
@@ -9,7 +8,7 @@ using UnityEngine;
 
 namespace Pebble
 {
-    public class StageDefinition : SerializedScriptableObject
+    public class StageDefinition : ScriptableObject
     {
 
     }

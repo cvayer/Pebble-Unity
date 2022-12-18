@@ -1,9 +1,8 @@
-﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Pebble
 {
-    public class Singleton<T> : SerializedMonoBehaviour where T : Component
+    public class Singleton<T> : MonoBehaviour where T : Component
     {
         private static T s_instance;
         private static object s_lock = new object();
