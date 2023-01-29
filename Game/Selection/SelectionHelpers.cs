@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+
+using UnityEngine;
 using System.Collections;
 using UnityEditor;
 using System.IO;
@@ -23,3 +25,5 @@ namespace Pebble
         }
     }
 }
+
+#endif

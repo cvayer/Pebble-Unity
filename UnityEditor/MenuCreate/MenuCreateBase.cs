@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+
+using UnityEngine;
 using UnityEditor;
 
 namespace Pebble
 {
-    class MenuCreateBase
+    public class MenuCreateBase
     {
         public static void Create<T>(string newAssetName) where T : ScriptableObject
         {
@@ -32,3 +34,4 @@ namespace Pebble
     } */
 }
 
+#endif
