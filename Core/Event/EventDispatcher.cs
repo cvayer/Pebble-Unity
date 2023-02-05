@@ -3,18 +3,16 @@ using System.Collections.Generic;
 
 //--------------------------------------------------------
 //--------------------------------------------------------
-// EventManager
+// EventDispatcher
 //--------------------------------------------------------
 //--------------------------------------------------------
 namespace Pebble
 {
-    public class EventManager : Singleton<EventManager>
+    public class EventDispatcher
     {
-        public delegate void EventDelegate<T>(T evt) where T : Event;
-
         private Dictionary<Type, Delegate>[] m_listeners;
 
-        public EventManager()
+        public EventDispatcher()
         {
             m_listeners = new Dictionary<Type, Delegate>[(int)EventChannel.Count];
 
@@ -25,47 +23,7 @@ namespace Pebble
         }
 
         //--------------------------------------------------------
-        public static void Subscribe<T>(EventDelegate<T> callback, EventChannel channel = EventChannel.Regular) where T : Event
-        {
-            if (Instance != null)
-            {
-                Instance.OnSubscribe<T>(callback, channel);
-            }
-
-        }
-
-        //--------------------------------------------------------
-        public static void UnSubscribe<T>(EventDelegate<T> callback, EventChannel channel = EventChannel.Regular) where T : Event
-        {
-            if (Instance != null)
-            {
-                Instance.OnUnSubscribe<T>(callback, channel);
-            }
-        }
-
-        //--------------------------------------------------------
-        // Automatically free the event if inherit from PooledEvent
-        public static void SendEvent<T>(T evt) where T : Event
-        {
-            if (Instance != null)
-            {
-                Instance.OnSendEvent<T>(evt);
-            }
-        }
-
-        //--------------------------------------------------------
-        // Automatically free the event if inherit from PooledEvent
-        public static void SendEmptyPooledEvent<T>() where T : PooledEvent, new()
-        {
-            if (Instance != null)
-            {
-                T evt = Pools.Claim<T>();
-                Instance.OnSendEvent<T>(evt);
-            }
-        }
-
-        //--------------------------------------------------------
-        private void OnSubscribe<T>(EventDelegate<T> callback, EventChannel channel) where T : Event
+        public void Subscribe<T>(EventDelegate<T> callback, EventChannel channel) where T : Event
         {
             if (channel == EventChannel.Count)
                 return;
@@ -86,7 +44,7 @@ namespace Pebble
         }
 
         //--------------------------------------------------------
-        private void OnUnSubscribe<T>(EventDelegate<T> callback, EventChannel channel) where T : Event
+        public void UnSubscribe<T>(EventDelegate<T> callback, EventChannel channel) where T : Event
         {
             if (channel == EventChannel.Count)
                 return;
@@ -110,7 +68,7 @@ namespace Pebble
         }
 
         //--------------------------------------------------------
-        public void OnSendEvent<T>(T evt) where T : Event
+        public void SendEvent<T>(T evt) where T : Event
         {
             Type type = evt.GetType();
             Delegate existingDelegate;
